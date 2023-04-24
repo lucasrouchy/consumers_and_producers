@@ -43,12 +43,12 @@ void *producer(void *arg)
         int events_per_producer = *pid * 100 + i;
         // wait for space
         sem_wait(availble_space);
-        // lock
+    
         sem_wait(mutex);
         printf("P%d: adding event %d\n", *pid, events_per_producer);
         //buffer add event
         eventbuf_add(eventbuffer, events_per_producer);
-        //post unlock
+    
         sem_post(mutex);
         //post product count. In this case its seats or space
         sem_post(product_count);
